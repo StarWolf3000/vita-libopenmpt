@@ -1,0 +1,22 @@
+--- common/mptMutex.h	2018-07-16 14:07:14.000000000 +0200
++++ common/mptMutex.h	2019-07-14 15:33:11.925589300 +0200
+@@ -37,7 +37,7 @@
+ #define MPT_MUTEX_STD     1
+ #define MPT_MUTEX_PTHREAD 0
+ #define MPT_MUTEX_WIN32   0
+-#elif MPT_COMPILER_GCC
++#elif MPT_COMPILER_GCC && !defined(MPT_FORCE_POSIX)
+ #define MPT_MUTEX_STD     1
+ #define MPT_MUTEX_PTHREAD 0
+ #define MPT_MUTEX_WIN32   0
+@@ -49,6 +49,10 @@
+ #define MPT_MUTEX_STD     0
+ #define MPT_MUTEX_PTHREAD 0
+ #define MPT_MUTEX_WIN32   1
++#elif MPT_FORCE_POSIX
++#define MPT_MUTEX_STD     0
++#define MPT_MUTEX_PTHREAD 1
++#define MPT_MUTEX_WIN32   0
+ #else
+ #define MPT_MUTEX_STD     0
+ #define MPT_MUTEX_PTHREAD 1
