@@ -1,0 +1,19 @@
+pkgname=libopenmpt
+pkgver=0.4.5
+pkgrel=1
+url="https://lib.openmpt.org/"
+source=("https://lib.openmpt.org/files/libopenmpt/src/libopenmpt-0.4.5+release.autotools.tar.gz")
+sha256sums=('SKIP'
+            '0b4cc0cc8fbbdabc6263a900ff3560dae7be43be011b6f2bc9913f7a0ed3a521')
+
+build() {
+  cd libopenmpt-0.4.5+release.autotools
+  export CPPFLAGS="-DMPT_FORCE_POSIX -std=c++11"
+  patch -Np1 -i "mutex_patch.patch"
+  ./configure --host=arm-vita-eabi --prefix=$VITASDK/arm-vita-eabi --disable-shared --enable-static --disable-libmodplug --disable-doxygen-doc --disable-openmpt123 --disable-examples --disable-tests --without-mpg123 --without-ogg --without-vorbis --without-vorbisfile --without-portaudio --without-portaudiocpp --without-sndfile --without-flac --without-zlib
+  make CONFIG=gcc
+}
+
+package() {
+  make DESTDIR=${pkgdir} install
+}
