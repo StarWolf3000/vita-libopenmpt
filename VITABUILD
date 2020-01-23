@@ -7,7 +7,7 @@ sha256sums=('SKIP'
             '260e92cc2f6af37113442bff2c75a3c36a09eba4078dc593203a0502f95d26bd')
 
 build() {
-  cd libopenmpt-0.4.5+release.autotools
+  cd libopenmpt-0.4.11+release.autotools
   export CPPFLAGS="-DMPT_FORCE_POSIX -std=c++11"
   patch -Np1 -i "mutex_patch.patch"
   ./configure --host=arm-vita-eabi --prefix=$VITASDK/arm-vita-eabi --disable-shared --enable-static --disable-libmodplug --disable-doxygen-doc --disable-openmpt123 --disable-examples --disable-tests --without-mpg123 --without-ogg --without-vorbis --without-vorbisfile --without-portaudio --without-portaudiocpp --without-sndfile --without-flac --without-zlib
